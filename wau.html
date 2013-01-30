@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WebAudio Utility (WAU) - Demo</title>
+<style type="text/css">
+html{margin:0;padding:0}
+body {font-family:sans-serif;font-size:12px;color:#222;}
+h1{font-family:sans-serif;}
+
+
+#meter {margin-left:10px;width:50px;height:50px;background-color:green;float:left}
+#meter.on{background-color:red;}
+.title{display:block;background-color:#eee;width:100%;height:40px;border-radius:15px;padding:10px 0 0 10px;}
+.title > img {margin:15px 0 15px 15px;float:left}
+.title h1 {margin-top:33px}
+.title a {text-decoration:none}
+.layer {padding-left:20px;width:400px;float:left}	
+.f_left {float:left}
+.clear {clear:both}
+.bold {font-weight:bold}
+</style>
+</head>
+<body>
+<script type="text/javascript" src="wau.js"></script>
+<script type="text/javascript">
+var node = new WAU({
+	path : "./source",
+	source : ["gangnam_style.mp3", "gangnam_style2.mp3", "telephone.wav"],
+	loop : true
+});
+
+function testPlay() {
+	node.src("gangnam_style2.mp3").play(true);	// for loop play
+	//node.src("gangnam_style2.mp3").plug("biquad", { type:0, frequency:500, Q:10 }).play();
+	//node.src("gangnam_style2.mp3").plug("biquad", { type:0, frequency:500, Q:10 }).plug("compressor").play();
+	
+	// When attempt to get source which isn't in buffer yet, load it to the buffer and throw with error message for the next attempt.
+	//node.src("gangnam_style.mp3")        // error in first attempt
+	//node.src("gangnam_style.mp3").play() // ok for next attempt
+	
+	//node.src("gangnam_style.mp3").stop() // stop playing
+}
+</script>
+
+<h1 class="title">WebAudio Utility (WAU)</h1>
+
+<h3>Create the instance</h3>
+<pre>
+var node = new WAU({
+	path : "./source",
+	source : ["gangnam_style.mp3", "gangnam_style2.mp3"],
+	loop : true
+});
+</pre>
+
+<h3>Play</h3>
+<pre>
+node.src("gangnam_style2.mp3").play(true);	// for loop play
+</pre>
+
+<h3>Stop</h3>
+<pre>
+node.src("gangnam_style2.mp3").stop();
+</pre>
+
+<h3>Adjusting volume</h3>
+<pre>
+node.src("gangnam_style2.mp3").volume(3);
+node.src("gangnam_style2.mp3").volume(3).play();
+</pre>
+
+
+<h3>Pluging to compressorNode</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("compressor").play();
+</pre>
+
+<h3>Pluging to delayNode</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("delay", 5).play();
+</pre>
+
+<h3>Pluging to biquadFilter</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("biquad", { type:0, frequency:500, Q:10 }).play();
+</pre>
+
+<h3>Pluging to javascriptNode</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("javascript", function(e) {
+    var nChannel = e.inputBuffer.numberOfChannels;
+    
+    for(var i=0, aBuffer; i < nChannel;i++) {
+        this.checkClipping(e.inputBuffer.getChannelData(i));
+    }
+}).play();
+</pre>
+
+
+<h3>Pluging to convolverNode</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("convoler", "telephone.wav").play();
+</pre>
+
+<h3>Combine mulple audioNodes</h3>
+<pre>
+node.src("gangnam_style.mp3").plug("convoler", "telephone.wav").plug("compressor").plug("delay", 5).play();
+</pre>
+</body>
+</html>
