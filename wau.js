@@ -1,7 +1,7 @@
 /*
  * WebAudio Utility (WAU)
  * 
- * @author  : Jae Sung Park (alberto.park@gmail.com)
+ * @author  : Jae Sung Park (alberto.park at gmail.com)
  * @version : 0.2
  * @date    : 2013-01-14
  * @update  : 2012-01-29
