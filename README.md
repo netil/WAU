@@ -25,6 +25,8 @@ var node = new WAU({
  node.src("sound2.mp3").stop() // stop playing
  ```
 
+## Documentations
+
 ### Methods
  * .src(string)     // Get(or load) the audio source.
  * .plug(string)    // Plug the source with the indicated AudioNode. (Check the available list of nodes below)
