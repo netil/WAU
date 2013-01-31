@@ -45,9 +45,9 @@ node.src("sound.mp3").plug("compressor").play();
 * biquadFilter
 ```javascript
 node.src("sound.mp3").plug("biquad", {
-  type : 0,
-  frequency : 1000,
-  Q : 10
+     type : 0,
+     frequency : 1000,
+     Q : 10
 }).play();
 ```
 
@@ -64,10 +64,10 @@ node.src("sound.mp3").plug("delay", 5).play();
 * javascript
 ```javascript
 node.src("sound.mp3").plug("javascript", function(e) {
-  var nChannel = e.inputBuffer.numberOfChannels;
+     var nChannel = e.inputBuffer.numberOfChannels;
     
-  for(var i=0, aBuffer; i < nChannel;i++) {
-    console.log(e.inputBuffer.getChannelData(i));
-  }
+     for(var i=0, aBuffer; i < nChannel;i++) {
+          console.log(e.inputBuffer.getChannelData(i));
+     }
 }).play();
 ```
