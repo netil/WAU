@@ -71,3 +71,5 @@ node.src("sound.mp3").plug("javascript", function(e) {
      }
 }).play();
 ```
+## License
+MIT License
